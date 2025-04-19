@@ -8,16 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var colummns = [
+//        GridItem(.fixed(100)),
+//        GridItem(.fixed(100)),
+//        GridItem(.fixed(100))
+        GridItem(),
+        GridItem(),   // flexible
+        GridItem()
+    ]
+    
     var body: some View {
         ScrollView {
-            LazyVStack {  // A view that arranges its children in a line that grows vertically, creating items only as needed.
+            LazyVGrid(columns: colummns) {
                 ForEach(0..<100) { i in
                     let _ = print("Dang \(i)")
                     RedAndCyanView()
                 }
-                
             }
-           
+
+//            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
+//                ForEach(0..<100) { i in
+//                    let _ = print("Dang \(i)")
+//                    RedAndCyanView()
+//                }
+//            }
+        }
+        
+        ScrollView(.horizontal) {
+            LazyHGrid(rows: colummns) {
+                ForEach(0..<100) { i in
+                    let _ = print("Dang \(i)")
+                    RedAndCyanView()
+                }
+            }
+
         }
         .padding()
     }
